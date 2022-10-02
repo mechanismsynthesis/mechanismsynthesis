@@ -1,0 +1,11 @@
+##### Windows
+
+##### MacOS
+# Executable file
+helloWorld
+
+# General
+.DS_Store
+
+# Debug files
+*.dSYM/
