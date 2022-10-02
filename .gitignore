@@ -1,4 +1,11 @@
 ##### Windows
+# Executable file
+helloWorld.exe
+
+# Files built by Visual Studio
+*.ilk
+*.obj
+*.pdb
 
 ##### MacOS
 # Executable file
