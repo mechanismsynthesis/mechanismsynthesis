@@ -8,6 +8,8 @@
             "args": [
               "/Zi",
               "/EHsc",
+              "/I",
+              "${workspaceFolder}\\eigen-3.4.0",
               "/Fe:",
               "${workspaceFolder}\\mechanismsynthesis.exe",
               "${workspaceFolder}/*.cpp"
