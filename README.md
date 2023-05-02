@@ -24,8 +24,8 @@ Reference - https://code.visualstudio.com/docs/cpp/config-msvc
 
 ## Externam Dependencies
 ### Eigen
-Eigen is a C++ template library for linear algebra: matrices, vectors, numerical solvers, and related algorithms.
-Wiki - https://eigen.tuxfamily.org/
-Source Code - https://gitlab.com/libeigen/eigen
-Releases - https://gitlab.com/libeigen/eigen/-/releases
-Version included - 3.4.0
+Eigen is a C++ template library for linear algebra: matrices, vectors, numerical solvers, and related algorithms.  
+Wiki - https://eigen.tuxfamily.org/  
+Source Code - https://gitlab.com/libeigen/eigen  
+Releases - https://gitlab.com/libeigen/eigen/-/releases  
+Version included - 3.4.0  

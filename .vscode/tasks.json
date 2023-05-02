@@ -25,6 +25,8 @@
                 "-stdlib=libc++",
                 "-g",
                 "${workspaceFolder}/*.cpp",
+                "-I",
+                "${workspaceFolder}/eigen-3.4.0",
                 "-o",
                 "${workspaceFolder}/mechanismsynthesis.out"
             ],
