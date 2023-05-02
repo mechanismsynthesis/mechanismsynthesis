@@ -9,8 +9,8 @@
               "/Zi",
               "/EHsc",
               "/Fe:",
-              "${fileDirname}\\${fileBasenameNoExtension}.exe",
-              "${file}"
+              "${workspaceFolder}\\mechanismsynthesis.exe",
+              "${workspaceFolder}/*.cpp"
             ],
             "problemMatcher": ["$msCompile"],
             "group": "build",
@@ -24,9 +24,9 @@
                 "-std=c++17",
                 "-stdlib=libc++",
                 "-g",
-                "${file}",
+                "${workspaceFolder}/*.cpp",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
+                "${workspaceFolder}/mechanismsynthesis.out"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
