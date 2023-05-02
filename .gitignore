@@ -1,21 +1,21 @@
 ##### Windows
 # Executable file
-helloWorld.exe
+mechanismsynthesis.exe
 
 # Files built by Visual Studio
 *.ilk
 *.obj
 *.pdb
 
+# Visual Studio cache/options directory
+.vs/
+
 ##### MacOS
 # Executable file
-helloWorld
+mechanismsynthesis.out
 
 # General
 .DS_Store
 
 # Debug files
 *.dSYM/
-
-# Visual Studio cache/options directory
-.vs/
