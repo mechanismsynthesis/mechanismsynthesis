@@ -1,6 +1,7 @@
 #include <Eigen/Dense>
 #include <iostream>
 #include <optional>
+#include <vector>
 
 #include "circleintersection.h"
 
@@ -19,27 +20,25 @@ struct TwoCircles
 // Jacobian
 // J = [(-2x1 + 2x) (-2y1 + 2y)
 //      (-2x2 + 2x) (-2y2 + 2y)]
-// Deltax (aks dx) = -Jinv * F
-// Increment x = x + dx where f(x) is below the threshold
+// Deltax (aka dx) = -Jinv * F
+// Increment x = x + dx till f(x) is below the threshold
 std::optional<Eigen::Vector2d> GetCircleIntersection(double x1, double y1, double r1, double x2, double y2, double r2)
 {
     const double minError = 0.0001;
     const int maxIterations = 100;
     Eigen::Matrix2d J; J << 0.0, 0.0, 0.0, 0.0; // Jacobian
     Eigen::Vector2d xy(1.11, 2.22); // initial guess, midpoint of two 
-    Eigen::Vector2d dxy(0.0, 0.0); // delta x and y
     Eigen::Vector2d fxy(0.0, 0.0); // function
     double error = 1.0;
     int iteration = 0;
-    while(error > minError && iteration < maxIterations)
+    while (error > minError && iteration < maxIterations)
     {
-        xy = xy + dxy;
         auto x = xy[0];
         auto y = xy[1];
         fxy = {(x1-x)*(x1-x) + (y1-y)*(y1-y) - r1*r1, (x2-x)*(x2-x) + (y2-y)*(y2-y) - r2*r2};
         error = abs(fxy.sum());
         J << -2*x1+2*x, -2*y1+2*y, -2*x2+2*x, -2*y2+2*y;
-        dxy = -J.inverse()*fxy;
+        xy += -J.inverse()*fxy;
         ++iteration;
     }
 
@@ -66,7 +65,7 @@ void CircleIntersection()
     for (auto c: circlePairs)
     {
         auto intersection = GetCircleIntersection(c.x1, c.y1, c.r1, c.x2, c.y2, c.r2);
-        std::cout << "Intersection of circles:" << "x1: " << c.x1 << " y1: " << c.y1 << " r1: " << c.r1 << "x2: " << c.x2 << " y2: " << c.y2 << " r2: " << c.r2 ;
+        std::cout << "Intersection of circles:" << "x1: " << c.x1 << " y1: " << c.y1 << " r1: " << c.r1 << " x2: " << c.x2 << " y2: " << c.y2 << " r2: " << c.r2 ;
         if (intersection)
         {
             std::cout << " is x: " << (*intersection)[0] << " y: " << (*intersection)[1] << std::endl;
