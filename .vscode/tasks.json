@@ -8,6 +8,7 @@
             "args": [
               "/Zi",
               "/EHsc",
+              "/std:c++17",
               "/I",
               "${workspaceFolder}\\eigen-3.4.0",
               "/Fe:",
