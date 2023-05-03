@@ -21,3 +21,11 @@ Reference - https://code.visualstudio.com/docs/cpp/config-msvc
 3. Install C/C++ extension by Microsoft (see extensions.json)
 5. Launch VSCode by typing "code ." in Developer Command Prompt for VS 2022 from the project directory. This is required to add cl.exe in the path
 6. Run the project from Visual Studio Code
+
+## Externam Dependencies
+### Eigen
+Eigen is a C++ template library for linear algebra: matrices, vectors, numerical solvers, and related algorithms.  
+Wiki - https://eigen.tuxfamily.org/  
+Source Code - https://gitlab.com/libeigen/eigen  
+Releases - https://gitlab.com/libeigen/eigen/-/releases  
+Version included - 3.4.0  
