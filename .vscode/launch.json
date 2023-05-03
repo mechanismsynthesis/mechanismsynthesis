@@ -1,7 +1,7 @@
 {
     "configurations": [
         {
-            "name": "C/C++: cl.exe build and debug active file",
+            "name": "C/C++: cl.exe build and debug workspace",
             "type": "cppvsdbg",
             "request": "launch",
             "program": "${workspaceFolder}\\mechanismsynthesis.exe",
@@ -10,10 +10,10 @@
             "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": false,
-            "preLaunchTask": "C/C++: cl.exe build active file"
+            "preLaunchTask": "C/C++: cl.exe build workspace"
         },
         {
-            "name": "C/C++: clang++ build and debug active file",
+            "name": "C/C++: clang++ build and debug workspace",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/mechanismsynthesis.out",
@@ -23,7 +23,7 @@
             "environment": [],
             "externalConsole": false,
             "MIMode": "lldb",
-            "preLaunchTask": "C/C++: clang++ build active file"
+            "preLaunchTask": "C/C++: clang++ build workspace"
         },
     ],
     "version": "2.0.0"
