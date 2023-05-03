@@ -10,6 +10,7 @@ struct TwoCircles
     double x1 = 0.0, y1 = 0.0, r1 = 0.0, x2 = 0.0, y2 = 0.0, r2 = 0.0;
 };
 
+// Calculatign Intersection between two circles using Newton Raphson method
 // Circle intersection equations
 // (x1 - x)^2 + (y1 - y)^2 = r1^2
 // (x2 - x)^2 + (y2 - y)^2 = r2^2
