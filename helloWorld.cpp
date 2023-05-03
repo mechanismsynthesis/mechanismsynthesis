@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 
-#include "eigenexample.h"
+#include "circleintersection.h"
 #include "fibonacci.h"
 
 int main()
@@ -18,5 +18,6 @@ int main()
     int n = 88;
     fibMapType fibMap;
     std::cout << "Fibonacci of " << n << " is: " << getFibonacci(fibMap, n) << std::endl;
-    EigenExample();
+
+    CircleIntersection();
 }
