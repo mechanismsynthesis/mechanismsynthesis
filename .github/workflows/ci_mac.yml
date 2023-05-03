@@ -1,0 +1,13 @@
+on:
+  pull_request:
+    branches:
+    - main
+    
+jobs:
+  build_mac:
+    name: Build on mac
+    runs-on: macos-latest
+    
+    steps:
+    - name: clang++ build
+      run: /usr/bin/clang++ -std=c++17 -stdlib=libc++ -g ./*.cpp -I ./eigen-3.4.0 -o ./mechanismsynthesis.out
