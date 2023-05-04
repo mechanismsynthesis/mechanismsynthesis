@@ -27,3 +27,4 @@ jobs:
     - if: matrix.os == 'ubuntu-latest'
       name: g++ build
       run: g++ -o mechanismsynthesis -I ./eigen-3.4.0 ./*.cpp # -std=c++17 is not required as it is the default
+# Maybe in the future we can use composite steps to compine multiple if conditions for the same os. Reference - https://github.com/orgs/community/discussions/43467#discussioncomment-4616303 
