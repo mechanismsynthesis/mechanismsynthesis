@@ -12,4 +12,4 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     - name: g++ build
-      run: g++ -std=c++11 -o mechanismsynthesis -I ./eigen-3.4.0 ./*.cpp
+      run: g++ -o mechanismsynthesis -I ./eigen-3.4.0 ./*.cpp # -std=c++17 is not required as it is default
