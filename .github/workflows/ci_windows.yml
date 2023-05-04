@@ -4,14 +4,19 @@ on:
     - master
     
 jobs:
-  build_windows:
-    name: Build on windows
-    runs-on: windows-latest
+  build:
+    name: Build on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest, ubuntu-latest]
     
     steps:
     - name: Checkout
       uses: actions/checkout@v2
     - name: Developer Command Prompt for Microsoft Visual C++
       uses: ilammy/msvc-dev-cmd@v1
-    - name: cl.exe build
+    - if: matrix.os == windows-latest
+      name: cl.exe build
       run: "cl.exe /Zi /EHsc /std:c++17 /I eigen-3.4.0 /Fe: mechanismsynthesis.exe *.cpp"
