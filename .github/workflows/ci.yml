@@ -15,8 +15,15 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Developer Command Prompt for Microsoft Visual C++
+    - if: matrix.os == 'windows-latest'
+      name: Developer Command Prompt for Microsoft Visual C++
       uses: ilammy/msvc-dev-cmd@v1
     - if: matrix.os == 'windows-latest'
       name: cl.exe build
       run: "cl.exe /Zi /EHsc /std:c++17 /I eigen-3.4.0 /Fe: mechanismsynthesis.exe *.cpp"
+    - if: matrix.os == 'macos-latest'
+      name: clang++ build
+      run: /usr/bin/clang++ -std=c++17 -stdlib=libc++ -g ./*.cpp -I ./eigen-3.4.0 -o ./mechanismsynthesis.out
+    - if: matrix.os == 'ubuntu-latest'
+      name: g++ build
+      run: g++ -o mechanismsynthesis -I ./eigen-3.4.0 ./*.cpp # -std=c++17 is not required as it is the default
