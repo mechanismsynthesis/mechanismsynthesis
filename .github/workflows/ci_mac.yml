@@ -9,5 +9,7 @@ jobs:
     runs-on: macos-latest
     
     steps:
+    - name: Checkout
+      uses: actions/checkout@v2
     - name: clang++ build
       run: /usr/bin/clang++ -std=c++17 -stdlib=libc++ -g ./*.cpp -I ./eigen-3.4.0 -o ./mechanismsynthesis.out
