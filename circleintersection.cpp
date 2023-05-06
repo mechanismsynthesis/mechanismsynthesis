@@ -41,10 +41,12 @@ std::optional<Eigen::VectorXd> GetCircleIntersection(double x1, double y1, doubl
     Eigen::Vector2d xy(1.11, 2.22); // initial guess, midpoint of two 
     auto c = TwoCircles(x1, y1, r1, x2, y2, r2);
     return NewtonRaphson::GetSolution(xy, c);
+
 }
 
 TEST_CASE("testing the circleintersection function") {
     CHECK(GetCircleIntersection(1, 2, 3, 2, 0, 3) == Eigen::Vector2d(3.9899799195982104, 2.2449899597991054));
     CHECK(GetCircleIntersection(1, 2, 3, 10, 15, 3) == std::nullopt);
     CHECK(GetCircleIntersection(10, 250, 335, 58, 92, 400) == Eigen::Vector2d(-323.02988151259211, 213.72193473035173));
+
 }
