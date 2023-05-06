@@ -16,6 +16,16 @@ class Interface
     virtual std::tuple<Eigen::VectorXd, Eigen::MatrixXd> GetFJacobian(Eigen::VectorXd xy) = 0;
 };
 
-std::optional<Eigen::VectorXd> GetSolution(Eigen::VectorXd xy, Interface &interface, const Options &options = Options());
+struct Solution
+{
+    const Eigen::VectorXd vector; // the solution from Newton Raphson
+    const int iterations; // Number of iterations performed to arrive at the solution
+    const double error; // Error value at the solution
+
+    // Compare this with other solution for testing purpose bu truncating number to the provided precisions 
+    bool CompareForTest(const Solution &other, int precision = 4);
+};
+
+std::optional<Solution> GetSolution(Eigen::VectorXd xy, Interface &interface, const Options &options = Options());
 
 } // namespace NewtonRaphson

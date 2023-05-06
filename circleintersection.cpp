@@ -1,7 +1,6 @@
 #include "circleintersection.h"
 
 #include "doctest.h"
-#include "newtonraphson.h"
 
 // Circle intersection equations
 // (x1 - x)^2 + (y1 - y)^2 = r1^2
@@ -36,7 +35,7 @@ class TwoCircles: public NewtonRaphson::Interface
     }
 };
 
-std::optional<Eigen::VectorXd> GetCircleIntersection(double x1, double y1, double r1, double x2, double y2, double r2)
+std::optional<NewtonRaphson::Solution> GetCircleIntersection(double x1, double y1, double r1, double x2, double y2, double r2)
 {
     Eigen::Vector2d xy(1.11, 2.22); // initial guess, midpoint of two 
     auto c = TwoCircles(x1, y1, r1, x2, y2, r2);
@@ -45,8 +44,7 @@ std::optional<Eigen::VectorXd> GetCircleIntersection(double x1, double y1, doubl
 }
 
 TEST_CASE("testing the circleintersection function") {
-    CHECK(GetCircleIntersection(1, 2, 3, 2, 0, 3) == Eigen::Vector2d(3.9899799195982104, 2.2449899597991054));
+    CHECK(GetCircleIntersection(1, 2, 3, 2, 0, 3)->CompareForTest({Eigen::Vector2d(3.9899, 2.2449), 8, 0.0}));
     CHECK(GetCircleIntersection(1, 2, 3, 10, 15, 3) == std::nullopt);
-    CHECK(GetCircleIntersection(10, 250, 335, 58, 92, 400) == Eigen::Vector2d(-323.02988151259211, 213.72193473035173));
-
+    CHECK(GetCircleIntersection(10, 250, 335, 58, 92, 400)->CompareForTest({Eigen::Vector2d(-323.0299, 213.7219), 8, 0.0}));
 }

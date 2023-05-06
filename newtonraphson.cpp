@@ -1,6 +1,30 @@
 #include "newtonraphson.h"
 
+#include <cmath>
+
 namespace NewtonRaphson {
+
+ bool Solution::CompareForTest(const Solution &other, int precision)
+ {
+    if (this->iterations != other.iterations)
+        return false;
+
+    int p = std::pow(10, precision);
+    if (std::floor(this->error*p) != std::floor(other.error*p))
+        return false;
+
+    if (this->vector.size() != other.vector.size())
+        return false;
+
+    for (size_t i = 0; i < this->vector.size(); ++i)
+    {
+        if (std::floor(this->vector[i]*p) != std::floor(other.vector[i]*p))
+            return false;
+    }
+
+    return true;
+ }
+
 
 // F is the Function, Eg:
 // f = [(x1 - x)^2 + (y1 - y)^2 - r1^2
@@ -10,7 +34,7 @@ namespace NewtonRaphson {
 //      (-2x2 + 2x) (-2y2 + 2y)]
 // Deltax (aka dx) = -Jinv * F
 // Increment x = x + dx till f(x) is below the threshold
-std::optional<Eigen::VectorXd> GetSolution(Eigen::VectorXd xy, Interface &interface, const Options &options)
+std::optional<Solution> GetSolution(Eigen::VectorXd xy, Interface &interface, const Options &options)
 {
     int size = xy.size();
     Eigen::MatrixXd J(size, size); // Jacobian
@@ -25,7 +49,7 @@ std::optional<Eigen::VectorXd> GetSolution(Eigen::VectorXd xy, Interface &interf
         ++iteration;
     }
 
-    return error <= options.minError ? std::optional(xy) : std::nullopt;
+    return error <= options.minError ? std::optional(Solution{xy, iteration, error}) : std::nullopt;
 }
 
 } // namespace NewtonRaphson
