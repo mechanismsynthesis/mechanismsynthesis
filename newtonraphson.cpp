@@ -1,7 +1,5 @@
 #include "newtonraphson.h"
 
-#include <cmath>
-
 namespace NewtonRaphson {
 
  bool Solution::CompareForTest(const Solution &other, int precision)
@@ -9,19 +7,21 @@ namespace NewtonRaphson {
     if (this->iterations != other.iterations)
         return false;
 
-    int p = std::pow(10, precision);
-    if (std::floor(this->error*p) != std::floor(other.error*p))
-        return false;
-
+    // Compare for options return vectors. 
     if (this->vector == std::nullopt)
         return other.vector == std::nullopt;
 
-    if (this->vector->size() != other.vector->size())
+    int p = std::pow(10, -precision);
+    // Only compare error if vector is not optionsl. Else errer might vary a lot on paltforms (aks Butterfly effect).
+    if (std::abs(this->error - other.error) <= p)
+        return false;
+
+    if (this->vector.value().size() != other.vector.value().size())
         return false;
 
     for (size_t i = 0; i < this->vector->size(); ++i)
     {
-        if (std::floor(this->vector.value()[i]*p) != std::floor(other.vector.value()[i]*p))
+        if (std::abs(this->vector.value()[i] - other.vector.value()[i]) <= p)
             return false;
     }
 

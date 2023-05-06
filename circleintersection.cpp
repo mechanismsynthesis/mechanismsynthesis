@@ -45,6 +45,6 @@ NewtonRaphson::Solution GetCircleIntersection(double x1, double y1, double r1, d
 
 TEST_CASE("testing the circleintersection function") {
     CHECK(GetCircleIntersection(1, 2, 3, 2, 0, 3).CompareForTest({Eigen::Vector2d(3.9899, 2.2449), 8, 0.0}));
-    CHECK(GetCircleIntersection(1, 2, 3, 10, 15, 3).CompareForTest({std::nullopt, 100, 146.63661})); // Issue, 146.6365 is treateed as 146.63659999, so making it 146.63661
-    CHECK(GetCircleIntersection(10, 250, 335, 58, 92, 400).CompareForTest({Eigen::Vector2d(-323.0299, 213.7219), 8, 0.0}));
+    CHECK(GetCircleIntersection(1, 2, 3, 10, 15, 3).CompareForTest({std::nullopt, 100, 146.6366}));
+    CHECK(GetCircleIntersection(10, 250, 335, 58, 92, 400).CompareForTest({Eigen::Vector2d(-323.0298, 213.7219), 8, 0.0}));
 }
