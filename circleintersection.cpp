@@ -1,14 +1,9 @@
 #include "circleintersection.h"
 
-#include <iostream>
 #include <vector>
 
 #include "doctest.h"
-
-struct TwoCircles
-{
-    double x1 = 0.0, y1 = 0.0, r1 = 0.0, x2 = 0.0, y2 = 0.0, r2 = 0.0;
-};
+#include "newtonraphson.h"
 
 // Circle intersection equations
 // (x1 - x)^2 + (y1 - y)^2 = r1^2
@@ -22,38 +17,36 @@ struct TwoCircles
 //      (-2x2 + 2x) (-2y2 + 2y)]
 // Deltax (aka dx) = -Jinv * F
 // Increment x = x + dx till f(x) is below the threshold
-std::optional<Eigen::Vector2d> GetCircleIntersection(double x1, double y1, double r1, double x2, double y2, double r2)
+class TwoCircles: public NewtonRaphson::NewtonRaphsonInterface
 {
-    const double minError = 0.0001;
-    const int maxIterations = 100;
-    Eigen::Matrix2d J; J << 0.0, 0.0, 0.0, 0.0; // Jacobian
-    Eigen::Vector2d xy(1.11, 2.22); // initial guess, midpoint of two 
-    Eigen::Vector2d fxy(0.0, 0.0); // function
-    double error = 1.0;
-    int iteration = 0;
-    while (error > minError && iteration < maxIterations)
+    double x1 = 0.0, y1 = 0.0, r1 = 0.0, x2 = 0.0, y2 = 0.0, r2 = 0.0;
+
+    public:
+    TwoCircles (double x1, double y1, double r1, double x2, double y2, double r2):x1(x1), y1(y1), r1(r1), x2(x2), y2(y2), r2(r2)
+    {
+    }
+
+    private:
+    virtual std::tuple<Eigen::VectorXd, Eigen::MatrixXd> GetFJacobian(Eigen::VectorXd xy)
     {
         auto x = xy[0];
         auto y = xy[1];
-        fxy = {(x1-x)*(x1-x) + (y1-y)*(y1-y) - r1*r1, (x2-x)*(x2-x) + (y2-y)*(y2-y) - r2*r2};
-        error = abs(fxy.sum());
+        Eigen::Vector2d fxy((x1-x)*(x1-x) + (y1-y)*(y1-y) - r1*r1, (x2-x)*(x2-x) + (y2-y)*(y2-y) - r2*r2);
+        Eigen::Matrix2d J;
         J << -2*x1+2*x, -2*y1+2*y, -2*x2+2*x, -2*y2+2*y;
-        xy += -J.inverse()*fxy;
-        ++iteration;
+        return {fxy, J};
     }
+};
 
-    if (error <= minError)
-    {
-        return xy;
-    }
-    else
-    {
-        return std::nullopt;
-    }
+std::optional<Eigen::VectorXd> GetCircleIntersection(double x1, double y1, double r1, double x2, double y2, double r2)
+{
+    Eigen::Vector2d xy(1.11, 2.22); // initial guess, midpoint of two 
+    auto c = TwoCircles(x1, y1, r1, x2, y2, r2);
+    return NewtonRaphson::GetSolution(xy, c);
 }
 
 TEST_CASE("testing the circleintersection function") {
     CHECK(GetCircleIntersection(1, 2, 3, 2, 0, 3) == Eigen::Vector2d(3.9899799195982104, 2.2449899597991054));
     CHECK(GetCircleIntersection(1, 2, 3, 10, 15, 3) == std::nullopt);
-    CHECK(GetCircleIntersection(10, 250, 335, 58, 92, 400) == Eigen::Vector2d(-323.02988151259211, 213.72193473035176));
+    CHECK(GetCircleIntersection(10, 250, 335, 58, 92, 400) == Eigen::Vector2d(-323.02988151259211, 213.72193473035173));
 }
