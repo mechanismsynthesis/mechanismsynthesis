@@ -18,7 +18,7 @@ class Interface
 
 struct Solution
 {
-    const Eigen::VectorXd vector; // the solution from Newton Raphson
+    const std::optional<Eigen::VectorXd> vector; // the solution from Newton Raphson
     const int iterations; // Number of iterations performed to arrive at the solution
     const double error; // Error value at the solution
 
@@ -26,6 +26,6 @@ struct Solution
     bool CompareForTest(const Solution &other, int precision = 4);
 };
 
-std::optional<Solution> GetSolution(Eigen::VectorXd xy, Interface &interface, const Options &options = Options());
+Solution GetSolution(Eigen::VectorXd xy, Interface &interface, const Options &options = Options());
 
 } // namespace NewtonRaphson

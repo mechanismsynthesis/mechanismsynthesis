@@ -13,12 +13,15 @@ namespace NewtonRaphson {
     if (std::floor(this->error*p) != std::floor(other.error*p))
         return false;
 
-    if (this->vector.size() != other.vector.size())
+    if (this->vector == std::nullopt)
+        return other.vector == std::nullopt;
+
+    if (this->vector->size() != other.vector->size())
         return false;
 
-    for (size_t i = 0; i < this->vector.size(); ++i)
+    for (size_t i = 0; i < this->vector->size(); ++i)
     {
-        if (std::floor(this->vector[i]*p) != std::floor(other.vector[i]*p))
+        if (std::floor(this->vector.value()[i]*p) != std::floor(other.vector.value()[i]*p))
             return false;
     }
 
@@ -34,7 +37,7 @@ namespace NewtonRaphson {
 //      (-2x2 + 2x) (-2y2 + 2y)]
 // Deltax (aka dx) = -Jinv * F
 // Increment x = x + dx till f(x) is below the threshold
-std::optional<Solution> GetSolution(Eigen::VectorXd xy, Interface &interface, const Options &options)
+Solution GetSolution(Eigen::VectorXd xy, Interface &interface, const Options &options)
 {
     int size = xy.size();
     Eigen::MatrixXd J(size, size); // Jacobian
@@ -49,7 +52,7 @@ std::optional<Solution> GetSolution(Eigen::VectorXd xy, Interface &interface, co
         ++iteration;
     }
 
-    return error <= options.minError ? std::optional(Solution{xy, iteration, error}) : std::nullopt;
+    return {error <= options.minError ? std::optional(xy) : std::nullopt, iteration, error};
 }
 
 } // namespace NewtonRaphson
