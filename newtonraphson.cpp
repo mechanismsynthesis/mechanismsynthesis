@@ -10,7 +10,7 @@ namespace NewtonRaphson {
 //      (-2x2 + 2x) (-2y2 + 2y)]
 // Deltax (aka dx) = -Jinv * F
 // Increment x = x + dx till f(x) is below the threshold
-std::optional<Eigen::VectorXd> GetSolution(Eigen::VectorXd xy, Interface &interface, const Options &options = Options())
+std::optional<Eigen::VectorXd> GetSolution(Eigen::VectorXd xy, Interface &interface, const Options &options)
 {
     int size = xy.size();
     Eigen::MatrixXd J(size, size); // Jacobian
