@@ -1,7 +1,5 @@
 #include "circleintersection.h"
 
-#include <vector>
-
 #include "doctest.h"
 #include "newtonraphson.h"
 
@@ -17,7 +15,7 @@
 //      (-2x2 + 2x) (-2y2 + 2y)]
 // Deltax (aka dx) = -Jinv * F
 // Increment x = x + dx till f(x) is below the threshold
-class TwoCircles: public NewtonRaphson::NewtonRaphsonInterface
+class TwoCircles: public NewtonRaphson::Interface
 {
     double x1 = 0.0, y1 = 0.0, r1 = 0.0, x2 = 0.0, y2 = 0.0, r2 = 0.0;
 

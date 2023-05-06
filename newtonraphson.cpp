@@ -2,17 +2,22 @@
 
 namespace NewtonRaphson {
 
-std::optional<Eigen::VectorXd> GetSolution(Eigen::VectorXd xy, NewtonRaphsonInterface &interface)
+// F is the Function, Eg:
+// f = [(x1 - x)^2 + (y1 - y)^2 - r1^2
+//      (x2 - x)^2 + (y2 - y)^2 = r2^2]
+// J is Jacobian, Eg:
+// J = [(-2x1 + 2x) (-2y1 + 2y)
+//      (-2x2 + 2x) (-2y2 + 2y)]
+// Deltax (aka dx) = -Jinv * F
+// Increment x = x + dx till f(x) is below the threshold
+std::optional<Eigen::VectorXd> GetSolution(Eigen::VectorXd xy, Interface &interface, const Options &options = Options())
 {
-    const double minError = 0.0001;
-    const int maxIterations = 100;
-
     int size = xy.size();
     Eigen::MatrixXd J(size, size); // Jacobian
     Eigen::VectorXd fxy(size); // function
-    double error = 1.0;
+    double error = options.minError + 1.0; // initial error should be greter than minError
     int iteration = 0;
-    while (error > minError && iteration < maxIterations)
+    while (error > options.minError && iteration < options.maxIterations)
     {
         std::tie(fxy, J) = interface.GetFJacobian(xy);
         error = abs(fxy.sum());
@@ -20,7 +25,7 @@ std::optional<Eigen::VectorXd> GetSolution(Eigen::VectorXd xy, NewtonRaphsonInte
         ++iteration;
     }
 
-    return error <= minError ? xy std::nullopt:
+    return error <= options.minError ? std::optional(xy) : std::nullopt;
 }
 
 } // namespace NewtonRaphson
