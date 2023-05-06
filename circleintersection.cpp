@@ -1,9 +1,11 @@
+#include "circleintersection.h"
+
 #include <Eigen/Dense>
 #include <iostream>
 #include <optional>
 #include <vector>
 
-#include "circleintersection.h"
+#include "doctest.h"
 
 struct TwoCircles
 {

@@ -29,3 +29,10 @@ Wiki - https://eigen.tuxfamily.org/
 Source Code - https://gitlab.com/libeigen/eigen  
 Releases - https://gitlab.com/libeigen/eigen/-/releases  
 Version included - 3.4.0  
+
+### doctest
+doctest is a new C++ testing framework but is by far the fastest both in compile times (by orders of magnitude) and runtime compared to other feature-rich alternatives. It is a header only framework and included as a single header doctest.h.
+Wiki - https://github.com/doctest/doctest/blob/master/README.md  
+Source Code - https://github.com/doctest/doctest  
+Releases - https://github.com/doctest/doctest/releases  
+Version included - 2.4.11  
