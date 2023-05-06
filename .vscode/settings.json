@@ -107,6 +107,21 @@
         "xtree": "cpp",
         "xutility": "cpp",
         "csignal": "cpp",
-        "alignedvector3": "cpp"
+        "alignedvector3": "cpp",
+        "superlusupport": "cpp",
+        "*.evaluator": "cpp",
+        "*.traits": "cpp",
+        "adolcforward": "cpp",
+        "autodiff": "cpp",
+        "bvh": "cpp",
+        "eulerangles": "cpp",
+        "fft": "cpp",
+        "kroneckerproduct": "cpp",
+        "mprealsupport": "cpp",
+        "numericaldiff": "cpp",
+        "openglsupport": "cpp",
+        "specialfunctions": "cpp",
+        "splines": "cpp",
+        "hash_map": "cpp"
     }
 }
