@@ -22,7 +22,7 @@ fibType getFibonacci(fibMapType &fibMap, int n)
 
 TEST_CASE("testing the factorial function") {
     fibMapType fibMap;
-    CHECK(getFibonacci(fibMap, 0) == 1);
+    CHECK(getFibonacci(fibMap, 0) == 0);
     CHECK(getFibonacci(fibMap, 1) == 1);
     CHECK(getFibonacci(fibMap, 19) == 4181);
     CHECK(getFibonacci(fibMap, 45) == 1134903170);
