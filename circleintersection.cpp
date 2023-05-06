@@ -1,16 +1,15 @@
-#include <Eigen/Dense>
+#include "circleintersection.h"
+
 #include <iostream>
-#include <optional>
 #include <vector>
 
-#include "circleintersection.h"
+#include "doctest.h"
 
 struct TwoCircles
 {
     double x1 = 0.0, y1 = 0.0, r1 = 0.0, x2 = 0.0, y2 = 0.0, r2 = 0.0;
 };
 
-// Calculatign Intersection between two circles using Newton Raphson method
 // Circle intersection equations
 // (x1 - x)^2 + (y1 - y)^2 = r1^2
 // (x2 - x)^2 + (y2 - y)^2 = r2^2
@@ -43,8 +42,6 @@ std::optional<Eigen::Vector2d> GetCircleIntersection(double x1, double y1, doubl
         ++iteration;
     }
 
-    std::cout << "Iterations: " << iteration << " Error: " << error << std::endl;
-
     if (error <= minError)
     {
         return xy;
@@ -55,25 +52,8 @@ std::optional<Eigen::Vector2d> GetCircleIntersection(double x1, double y1, doubl
     }
 }
 
-// Prints intersection point from x1, y1, r1 defining first circle, x2, y2, r2 defining second circle
-void CircleIntersection()
-{
-    std::vector<TwoCircles> circlePairs{
-        {1.0, 2.0, 3.0, 2.0, 0.0, 3.0},
-        {1.0, 2.0, 3.0, 10.0, 15.0, 3.0},
-        {10.0, 250.0, 335.0, 58.0, 92.0, 400.0},
-    };
-    for (auto c: circlePairs)
-    {
-        auto intersection = GetCircleIntersection(c.x1, c.y1, c.r1, c.x2, c.y2, c.r2);
-        std::cout << "Intersection of circles:" << "x1: " << c.x1 << " y1: " << c.y1 << " r1: " << c.r1 << " x2: " << c.x2 << " y2: " << c.y2 << " r2: " << c.r2 ;
-        if (intersection)
-        {
-            std::cout << " is x: " << (*intersection)[0] << " y: " << (*intersection)[1] << std::endl;
-        }
-        else
-        {
-            std::cout << " Not found" << std::endl;
-        }   
-    }
+TEST_CASE("testing the circleintersection function") {
+    CHECK(GetCircleIntersection(1, 2, 3, 2, 0, 3) == Eigen::Vector2d(3.9899799195982104, 2.2449899597991054));
+    CHECK(GetCircleIntersection(1, 2, 3, 10, 15, 3) == std::nullopt);
+    CHECK(GetCircleIntersection(10, 250, 335, 58, 92, 400) == Eigen::Vector2d(-323.02988151259211, 213.72193473035176));
 }
