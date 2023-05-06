@@ -20,7 +20,7 @@ jobs:
       uses: ilammy/msvc-dev-cmd@v1
     - if: matrix.os == 'windows-latest'
       name: cl.exe build
-      run: "cl.exe /Zi /EHsc /std:c++17 /I eigen-3.4.0 /Fe: mechanismsynthesis.exe *.cpp"
+      run: "cl.exe /Zi /EHsc /std:c++17 /I eigen-3.4.0 /Fe: mechanismsynthesis.exe *.cpp && mechanismsynthesis.exe"
     - if: matrix.os == 'macos-latest'
       name: clang++ build
       run: /usr/bin/clang++ -std=c++17 -stdlib=libc++ -g ./*.cpp -I ./eigen-3.4.0 -o ./mechanismsynthesis.out
