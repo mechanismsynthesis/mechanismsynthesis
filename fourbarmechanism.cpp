@@ -1,6 +1,6 @@
 #include "fourbarmechanism.h"
 
-#include "../doctest.h"
+#include "doctest.h"
 
 // Four bar equations
 // Fixed Link
